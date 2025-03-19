@@ -155,7 +155,7 @@ spatial coherence, which is proportional to the product of the size
 $(\text{m}^2)$, bandwidth and angular divergence of the beam.  The difference in
 brilliance between XFELs and synchrotrons is drastic, with XFELs exhibiting
 higher brilliance by several orders of magnitude due to their high peak power
-and short pulse duration \cite{Baillet2014}. A comparison of the avberage
+and short pulse duration \cite{Baillet2014}. A comparison of the average
 brilliance of XFEL and synchrotron facilities is shown in Fig.
 \ref{fig:brilliance}.
 
@@ -180,8 +180,13 @@ brilliance of XFEL and synchrotron facilities is shown in Fig.
 \end{figure}
 
 These sources operate in a similar manner, accelerating
-electrons to relativistic speeds before channeling them through undulators to
-produce X-rays. Undulators, as can be seen in fig \ref{fig:Undulator}, are 
+electrons to relativistic speeds and inducing synchrotron radiation via the
+Lorentz forces of magnetic fields. Synchrotrons use bending magnets to curve the
+electron beam, while XFELs use undulators to generate coherent X-rays, though 
+some synchrotrons have also implemented undulators. 
+
+\subsubsection{Undulators}
+Undulators, as can be seen in fig \ref{fig:Undulator}, are 
 arrays of magnets of periodically alternating polarities. As an electron enters
 this array at velocity $\textbf{u} \approx c$, it undergoes synchrotron 
 radiation due to the acceleration caused by the sinusoidal magnetic field. In
@@ -194,7 +199,7 @@ field via the Lorentz boosts:
 \mathbf{E}'_{\perp} &= \gamma (\mathbf{E}_{\perp} - u \mathbf{B}_{\perp}) \\
 \mathbf{B}'_{\perp} &= \gamma \left( \mathbf{B}_{\perp} + \frac{u}{c^2} \mathbf{E}_{\perp} \right)
 \end{align}
-where $\gamma = \frac{1}{\sqrt{1 - v^2/c^2}}$ . Since the undulator field in
+where $\gamma = \frac{1}{\sqrt{1 - u^2/c^2}}$ . Since the undulator field in
 the lab frame is purely magnetic ($\textbf{E} = 0$), the transverse field in
 the electron's rest frame simplifies to $\mathbf{E}'_{\perp} = - \gamma u
 \mathbf{B}_{\perp}$. In essence, the system looks like an electromagnetic wave
@@ -220,7 +225,7 @@ where,
 is known as the deflection parameter and is equal to the maximum angular
 excursion of the beam in units of $1/\gamma$. Any device having $K < 1$ is
 known as an undulator, while one with $K \gg 1$ is called a wiggler
-\cite{Properties of Undulator Radiation - CERN}. This result is handy as it
+\cite{CERN}. This result is handy as it
 entails that the emitted wavelength of an XFEL may be tuned by adjusting the
 magnetic field strength. It also reveals how much 
 energy is required to accelerate electrons to sufficient speeds such that 
@@ -242,9 +247,46 @@ or $1/mN_u$ for the $m^{th}$ harmonic \cite{CERN}.
 \subsection{Microbunching and Self-Amplified Spontaneous Emission (SASE)}
 
 In reality, it is not a single electron that is accelerated into the undulator,
-but groups of them called bunches.
+but groups of them called bunches. A bunch of electrons will emit X-rays as it
+passes through the undulator, but the radiation will be incoherent due to the
+random phase of the electrons. 
 
-
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/Microbunching.png}
+    \caption{Mechanism of microbunching in an XFEL. ($a$) shows the progressive
+        formation of microbunches as the electrons pass through the undulator.
+        ($b$) shows the initial waves emitted by the electrons, and ($c$) shows
+        how the spacing between the microbunches is determined by the undulator
+        period. Finally, ($d$) shows the how the intensity of the emitted X-rays
+        scales as a function of distance in the undulator, until the saturation
+        point is reached, corresponding to where the electrons are maximally 
+        bunched \cite{EMMA}.}
+    \label{fig:Undulator}
+\end{figure}
+However, as the electrons travel through the
+undulator, the waves they emit via spontaneous emission will interfere with 
+other electrons. This interference can lead to the formation of microbunches,
+where, depending on the relative phase of the electrons, the emitted radiation
+will either accelerate or decelerate the electrons. This leads to the formation
+of microbunches, which are ostensibly planes of electrons that emit coherent
+X-rays, each conveniently being separated in space by the undulator period
+$\lambda_u$. This phenomenon is known as self-amplified spontaneous emission 
+(SASE) \cite{Saldin2006}.
+This correlated emission of X-rays leads to a significant increase in the intensity
+of the emitted radiation, as the waves emitted by the electrons constructively
+interfere. This is illustrated in Fig. \ref{fig:Undulator}. The intensity of the
+radiation scales exponentially as a function of distance in the undulator, as described 
+by the following functional form:
+\begin{equation}
+    I(z) = I_0\exp\left(\frac{z}{l_g}\right),
+\end{equation}
+where $I_0$ is the initial intensity of the radiation, $z$ is the distance in the
+undulator, and $l_g$ is the gain length, which is the distance over which the
+intensity of the radiation increases by a factor of $e$ \cite{Bonifacio}. When 
+building an undulator system, this result informs the optimal length to achieve 
+the maximal theoretical intensity, with lengths exceeding those which achieve saturation 
+proving to be unnecessary and cost-ineffective.
 \newpage
 
 
