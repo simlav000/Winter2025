@@ -244,7 +244,7 @@ of a finite-length wave scales as $1/T_t$, the spectral width becomes
 \end{equation}
 or $1/mN_u$ for the $m^{th}$ harmonic \cite{CERN}.
 
-\subsection{Microbunching and Self-Amplified Spontaneous Emission (SASE)}
+\subsubsection{Microbunching and Self-Amplified Spontaneous Emission (SASE)}
 
 In reality, it is not a single electron that is accelerated into the undulator,
 but groups of them called bunches. A bunch of electrons will emit X-rays as it
@@ -284,10 +284,34 @@ by the following functional form:
 where $I_0$ is the initial intensity of the radiation, $z$ is the distance in the
 undulator, and $l_g$ is the gain length, which is the distance over which the
 intensity of the radiation increases by a factor of $e$ \cite{Bonifacio}. When 
-building an undulator system, this result informs the optimal length for 
-optimal output intensity, with additional length proving to be unnecessary 
-and cost-ineffective.
-\newpage
+building an undulator system, this result informs the optimal length to achieve 
+the maximal theoretical intensity, with lengths exceeding those which achieve saturation 
+proving to be unnecessary and cost-ineffective.
+
+\subsubsection{Bunch Compressors}
+XFELs can be used to emit ultra fast X-ray pulses. The duration of a pulse
+directly corresponds to the time it takes for the entire electron bunch to 
+cross a certain point along the linear accelerator. To acheive shorter pulses,
+bunch compressors are used to reduce the longitudinal distance of a bunch. 
+Compressing an electron bunch is nontrivial, as the individual particles 
+naturally repel each other via the Coulomb interaction. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/MagneticChicane.jpg}
+    \caption{Process of electron bunch compression}
+    \label{fig:Undulator}
+\end{figure}
+
+\subsubsection{Synchrotrons}
+Synchrotrons differ from XFELs in that they accelerate charged particles in a
+circular trajectory using bending magnets. The strength of the magnetic field
+must be synchronized with the particle's energy, as a greater Lorentz force is
+required to maintain the desired curved path as the particle's velocity
+increases. Due to this radial acceleration, the charged particles emit
+electromagnetic radiation. However, unlike in XFELs, this emitted radiation is
+largely incoherent. Synchrotron radiation has a broad spectrum, making it 
+versatile in this sense.
 
 
 
