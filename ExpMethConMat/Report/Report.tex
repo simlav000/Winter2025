@@ -3,6 +3,7 @@
 \usepackage{hyperref}  % Required for clickable links
 \usepackage{wrapfig}
 \usepackage{amsmath}
+\usepackage{multirow}
 
 \renewcommand{\thefigure}{\arabic{figure}}
 
@@ -182,8 +183,11 @@ brilliance of XFEL and synchrotron facilities is shown in Fig.
 These sources operate in a similar manner, accelerating
 electrons to relativistic speeds and inducing synchrotron radiation via the
 Lorentz forces of magnetic fields. Synchrotrons use bending magnets to curve the
-electron beam, while XFELs use undulators to generate coherent X-rays, though 
-some synchrotrons have also implemented undulators. 
+electron beam, while XFELs use undulators installed at the end of a linear
+accelerator (LINAC) to generate coherent X-rays, though 
+some synchrotrons have also implemented undulators. Both sources require that 
+electron bunches be accelerated under vacuum, where the air pressure is of the 
+order of $10^{-9}$ Torr to prevent beam scattering and energy loss.
 
 \subsubsection{Undulators}
 Undulators, as can be seen in fig \ref{fig:Undulator}, are 
@@ -292,14 +296,27 @@ proving to be unnecessary and cost-ineffective.
 XFELs can be used to emit ultra fast X-ray pulses. The duration of a pulse
 directly corresponds to the time it takes for the entire electron bunch to 
 cross a certain point along the linear accelerator. To acheive shorter pulses,
-bunch compressors are used to reduce the longitudinal distance of a bunch. 
+bunch compressors are used to reduce the length of a bunch. 
 Compressing an electron bunch is nontrivial, as the individual particles 
-naturally repel each other via the Coulomb interaction. 
+naturally repel each other via the Coulomb interaction. In practice, bunch 
+compression is achieved by sending the electron bunch through a magnetic chicane.
+The chicane consists of a series of magnets that bend the electron bunch in a
+controlled manner, such that lower energy particles are deflected at greater 
+angles, and thus must cover more distance, while higher energy particles are
+deflected less. A bunch is said to have a negative energy chirp if tail electrons 
+have higher energy than head electrons. With a negative energy chirp, the tail
+electrons deflect less than the head electrons, allowing them to catch up to 
+the head electrons, compressing the bunch \cite{Hastings2020}.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.9\linewidth]{Figures/MagneticChicane.jpg}
-    \caption{Process of electron bunch compression}
+    \caption{Process of electron bunch compression via a magnetic chicane.
+    A typical chicane will consist of four dipole magnets of alternating
+    polarities, pictured as green boxes. The black line shows the trajectory of
+    reference particles, with the red line showing the trajectory of particles
+    with lower energy, which are deflected more, and in blue the particles of
+    higher energy, which are deflected less \cite{Hastings2020}.}
     \label{fig:Undulator}
 \end{figure}
 
@@ -311,20 +328,124 @@ required to maintain the desired curved path as the particle's velocity
 increases. Due to this radial acceleration, the charged particles emit
 electromagnetic radiation. However, unlike in XFELs, this emitted radiation is
 largely incoherent. Synchrotron radiation has a broad spectrum, making it 
-versatile in this sense.
+versatile in this sense. Some synchrotrons are called storage rings, as they
+maintain a beam of constant velocity particles circulating in a closed loop. 
+In these facilities, radio-frequency cavities are used to compensate for the 
+energy loss of the particles as they lose energy due to synchrotron radiation. 
+Some synchrotrons have linear accelerators that provide an initial energy boost
+to the particles before they are injected into the storage ring.
+The emitted radiation is then directed to the experimental stations, where it is
+used for X-ray diffraction, spectroscopy, and imaging \cite{Wiedemann2004}.
 
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Figures/Synchrotron Facility.jpg}
+    \caption{Typical layout of a synchrotron facility. The linear accelerator
+    (LINAC) is used to accelerate particles to high energies before they are
+    injected into a booster ring. The booster ring then accelerates the
+    particles to even higher energies before they are injected into the storage
+    ring. The storage ring maintains a beam of particles circulating in a closed
+    loop via bending magnets, where they emit synchrotron radiation. This
+    radiation is then directed to the experimental hutch. Certain insertion 
+    devices, which may include undulators or wigglers, are used to generate
+    higher intensity X-rays \cite{Wiedemann2004}.}
+    \label{fig:Undulator}
+\end{figure}
 
 
 
 
 \section{Data Acquisition and Analysis} \label{sec:data}
-Techniques such as Fourier transform analysis and Rietveld refinement allow for precise structural determination.
+\subsection{Detectors}
+Detectors are used to capture the diffracted X-rays. The most common types are
+scintillation detectors, which convert X-rays into visible light, and
+semiconductor detectors, which convert X-rays into electrical signals. The
+latter are more sensitive and have a higher dynamic range, making them ideal for
+high-resolution studies. The data collected by the detectors is then processed
+using computational methods.
+
+\subsection{Rietveld Refinement}
+Rietveld refinement is a computational method used to determine the crystal
+structure of a material from XRD data. It is typically used for powder samples,
+where multiple reflections take place. It involves comparing the experimental
+diffraction pattern $y_i^{\text{obs}}$ with a theoretical one $y_i^{\text{calc}}$
+generated from a proposed crystal structure. A general recipe for obtaining a 
+theoretical model of a diffraction pattern is to understand the diffraction peak 
+positions, intensities, and shapes, taking into account background contributions.
+This information is condensed into table \ref{tab:DiffractionFactors}, which is taken 
+from Pecharsky and Zavalij \cite{pecharsky2005fundamentals}.
+Peak positions, as described in section \ref{sec:theory}, are determined according 
+to Bragg's law. 
+
+\begin{table*}[]
+\caption{Factors affecting different components of an X-ray diffraction pattern.}
+\label{tab:DiffractionFactors}
+\centering
+\begin{tabular}{llll}
+\hline
+Pattern component & Crystal structure & Specimen property & Instrumental parameter \\ \hline
+\multirow{4}{*}{Peak position}  
+  & \textbf{Unit cell parameters} & \textit{Absorption} & \textbf{Radiation (wavelength)} \\
+  & ($a, b, c, \alpha, \beta, \gamma$) & Porosity & \textit{Instrument/sample alignment} \\
+  & & & Axial divergence of the beam \\ \hline
+\multirow{3}{*}{Peak intensity}  
+  & \textbf{Atomic parameters} & \textit{Preferred orientation} & Geometry and configuration \\
+  & ($x, y, z, B, \text{etc.}$) & Absorption & \textbf{Radiation (Lorentz, polarization)} \\
+  & & \textit{Porosity} &  \\ \hline
+\multirow{3}{*}{Peak shape}  
+  & \textit{Crystallinity} & \textit{Grain size} & \textbf{Radiation (spectral purity)} \\
+  & Disorder & \textit{Strain} & \textbf{Geometry} \\
+  & Defects & \textit{Stress} & \textbf{Beam conditioning} \\ \hline
+\multicolumn{4}{l}{Key parameters are shown in \textbf{bold}. Parameters that may have a significant influence are shown in \textit{italics}.} \\ \hline
+\end{tabular}
+\end{table*}
+
+
+
+
+
+
+
+
+the intensity of the diffracted X-rays can be calculated using the structure factor
+\begin{equation}
+    I_h \propto |F_h|^2 = \left| \sum_j f_j e^{2\pi i(hx_j)} \right|^2,
+\end{equation}
+which is a function of the atomic form factor $f_j$ and the atomic positions $x_j$.
+The form factor is a measure of the scattering power of an atom, and is dependent on
+the electron density, the scattering angle and the scatterer, that is, X-ray form 
+factors are different from neutron form factors. For various techniques, these factors are often tabulated in
+the International Tables for Crystallography, and available in the FullProf Suite.
+
+
+of these diffraction patterns in modern day is by using the FullProf Suite, which
+is a software package that allows for the simulation of X-ray and neutron powder
+diffraction patterns \cite{RODRIGUEZCARVAJAL199355}. FullProf uses crystallographic
+information files (CIFs), which package information such as atomic positions, 
+unit cell parameters, thermal parameters and space group symmetry. With this data,
+
+
+The method iteratively adjusts the parameters of the crystal structure until the
+theoretical pattern matches the experimental one. This process allows for the
+determination of the lattice parameters, atomic positions, and thermal
+vibrations of the crystal \cite{Rietveld1969}. 
+
+\subsection{Fourier Transform Analysis}
+Fourier transform analysis is another computational method used in XRD. It
+involves transforming the diffraction pattern from the spatial domain to the
+reciprocal space, where the peaks correspond to the interplanar spacings of the
+crystal. This method is used to determine the crystal structure and orientation
+of the sample \cite{Warren1969}.
+
+
 
 \section{Challenges and Future Prospects} \label{sec:challenges}
 High facility costs and limited access remain key limitations. Advances in AI-driven data processing and compact XFELs
 promise to expand accessibility.
 
+\newpage
+\section{References}
 \bibliographystyle{apsrev4-2}
 \bibliography{references}
 
